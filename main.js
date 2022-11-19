@@ -1,6 +1,7 @@
+console.log("Happy Hacking! :-)")
+import { status } from "./data";
 import "./main.scss";
 
-console.log("Happy Hacking! :-)")
 
 class StatusList extends HTMLElement {
     constructor() {
@@ -9,16 +10,22 @@ class StatusList extends HTMLElement {
         this.countStatus = this.dataset.statutsElement;
 
         console.log(this.countStatus);
+
+        this.renderStatus();
     }
 
-    async getUserData() {
-        const user = await fetch("https://randomuser.me/api/")
-        .then(resp => resp.json())
-        .then(data => data);
+    renderStatus() {
+        status.map(user => {
+            const li = document.createElement('li');
+            const image = document.createElement('img');
+            image.src = user.picture;
+            image.alt = user.name;
 
-        return user;
+            li.append(image);
+
+            this.querySelector('ul').append(li);
+        })
     }
-
 
 }
 
